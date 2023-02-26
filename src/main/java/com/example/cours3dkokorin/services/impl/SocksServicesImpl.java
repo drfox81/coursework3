@@ -5,6 +5,7 @@ import com.example.cours3dkokorin.model.Socks;
 import com.example.cours3dkokorin.model.TypeOperation;
 import com.example.cours3dkokorin.services.FileServices;
 import com.example.cours3dkokorin.services.ProductServices;
+import com.example.cours3dkokorin.services.SockError;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +45,7 @@ public class SocksServicesImpl implements ProductServices {
     }
 
     @Override
-    public int addProduct(Socks socks) {
+    public int addProduct(Socks socks) throws SockError {
         for (Socks value : sockMap) {
             if (value.equals(socks)) {
                 value.setQuantity(value.getQuantity() + socks.getQuantity());
