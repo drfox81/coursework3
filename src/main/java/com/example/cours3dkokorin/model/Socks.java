@@ -1,9 +1,12 @@
 package com.example.cours3dkokorin.model;
 
 import com.example.cours3dkokorin.services.SockError;
+import com.example.cours3dkokorin.services.SockErrorAddSock;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,7 +23,7 @@ public class Socks {
 
     private int quantity;
 
-    private ArrayList<String> time =new ArrayList<>();
+    private ArrayList<String> time = new ArrayList<>();
 
     public Socks(ColorSock color, Size size, int cottonPart, int quantity) {
         this.color = color;
@@ -30,30 +33,31 @@ public class Socks {
         time.add(LocalDateTime.now().toString());
     }
 
-    public int getCottonPart() {
-        try {
-            if (cottonPart < 0 || cottonPart > 100) {
-                throw new SockError();
-            } else {
-                return cottonPart;
-            }
-        } catch (SockError e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+
+    //    public int getCottonPart() {
+//        try {
+//            if (cottonPart < 0 || cottonPart > 100) {
+//                throw new SockError();
+//            } else {
+//                return cottonPart;
+//            }
+//        } catch (SockError e) {
+//             e.printStackTrace();
+//        }
+//        return 0;
+//    }
 
     public int getQuantity() {
         try {
             if (quantity < 0) {
-                throw new SockError();
+                throw new SockErrorAddSock();
             } else {
                 return quantity;
             }
-        } catch (SockError e) {
-            e.printStackTrace();
+        } catch (SockErrorAddSock e) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST);
         }
-        return 0;
+        return quantity;
     }
 
     @Override

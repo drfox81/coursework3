@@ -5,6 +5,7 @@ import com.example.cours3dkokorin.model.Size;
 import com.example.cours3dkokorin.model.Socks;
 import com.example.cours3dkokorin.model.TypeOperation;
 import com.example.cours3dkokorin.services.ProductServices;
+import com.example.cours3dkokorin.services.SockError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,9 +48,12 @@ public class SocksController {
     })
     public ResponseEntity<?> addSockOnWarehouse(
             @RequestParam ColorSock colorSock, @RequestParam Size size,
-            @RequestParam int cotton, @RequestParam int quantity) {
+            @RequestParam int cotton, @RequestParam int quantity) throws SockError {
         if (!StringUtils.isBlank(colorSock.name())) {
             Socks socks = new Socks(colorSock, size, cotton, quantity);
+            if (quantity<=0 || cotton<0 || cotton>100){
+               return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
             return ResponseEntity.ok().body(socksServices.addProduct(socks));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

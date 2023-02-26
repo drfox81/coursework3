@@ -1,8 +1,10 @@
 package com.example.cours3dkokorin.services;
 
+import org.springframework.http.HttpStatus;
+
 public class SockErrorAddSock extends Exception{
     public SockErrorAddSock() {
-        System.out.println("Че то пошло не так");
+        System.out.println(HttpStatus.BAD_REQUEST);
     }
 
     public String getMessage() {

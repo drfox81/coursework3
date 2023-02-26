@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public interface ProductServices {
-   int addProduct(Socks socks);
+   int addProduct(Socks socks) throws SockError;
 
    String putAndDeleteProduct(Socks socks, TypeOperation typeOperation);
 
